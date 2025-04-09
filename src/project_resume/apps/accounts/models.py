@@ -4,10 +4,8 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import BaseUserManager
 
 
-
 class UserManager(BaseUserManager):
-
-    def create_user(self, username, password, email=None, **extra_fields):
+    def create_user(self, username, password, email, **extra_fields):
         if not username:
             raise ValueError('نام کاربری را وارد کنید')
         if not password:
@@ -21,10 +19,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
-
-
-    def create_superuser(self, username, password, email=None, **extra_fields):
+    def create_superuser(self, username, password, email, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
@@ -32,12 +27,11 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
-        self.create_user(username, password, email, **extra_fields)
-
+        return self.create_user(username, password, email, **extra_fields)
 
 
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
-    email_confirmed = models.BooleanField(default=False)
+    email_confirmed = models.BooleanField(default=True)
 
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['email']

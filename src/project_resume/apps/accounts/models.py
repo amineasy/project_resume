@@ -35,3 +35,23 @@ class CustomUser(AbstractUser):
     email_confirmed = models.BooleanField(default=True)
 
     REQUIRED_FIELDS = ['email']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

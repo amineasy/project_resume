@@ -28,3 +28,41 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 
 
+
+
+
+
+
+
+class PasswordRestSerializer(serializers.Serializer):
+    email = serializers.EmailField(write_only=True)
+
+
+
+
+class VerifyCodeSerializer(serializers.Serializer):
+    code = serializers.CharField(max_length=5)
+
+
+
+class PasswordResetConfirmSerializer(serializers.Serializer):
+    new_password = serializers.CharField(min_length=6, write_only=True)
+    confirm_password = serializers.CharField(min_length=6, write_only=True)
+
+    def validate(self, data):
+        if data['new_password'] != data['confirm_password']:
+            raise serializers.ValidationError("رمزها با هم مطابقت ندارند.")
+        return data
+
+
+
+
+
+
+
+
+
+
+
+
+

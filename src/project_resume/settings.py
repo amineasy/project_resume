@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'project_resume.apps.accounts',
+    'project_resume.apps.menu',
     'drf_spectacular',
 ]
 
@@ -152,3 +153,25 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
+
+
+
+
+
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.elasticemail.com'
+EMAIL_PORT = 2525
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'amineasydjango@gmail.com'
+EMAIL_HOST_PASSWORD = 'A1E5BA52A320F7FC461F05AF378729BBEC2A'
+DEFAULT_FROM_EMAIL = 'amineasydjango@gmail.com'
+
+
+
+
+
+
+SESSION_COOKIE_AGE = 300

@@ -1,8 +1,9 @@
-from random import random
+import random
 
 from django.contrib.auth import get_user_model
 from django.core.signing import TimestampSigner
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from yaml import serializer
@@ -32,6 +33,8 @@ class RegisterApiView(APIView):
 
 
 class SendEmailPassword(APIView):
+    authentication_classes = []
+    permission_classes = [AllowAny]
     def post(self, request):
         serializer = PasswordRestSerializer(data=request.data)
         if serializer.is_valid():
@@ -44,14 +47,12 @@ class SendEmailPassword(APIView):
 
             code = random.randint(10000, 99999)
 
-
-
             send_mail(
-                'کد تایید بازیابی رمز عبور',
-                f'کد تایید شما: {code}',
-                'amineasydjango@gmail.com',
-                [email],
-                fail_silently=False
+                'کد تایید تغییر رمز',
+                f'{code}',
+                'yourgmail@gmail.com',  # ایمیل فرستنده
+                [email],  # ایمیل گیرنده
+                fail_silently=False,
             )
 
             request.session['reset_code'] = code
@@ -70,6 +71,8 @@ class SendEmailPassword(APIView):
 
 
 class VerifyRestCode(APIView):
+    authentication_classes = []
+    permission_classes = [AllowAny]
     def post(self, request):
         code = request.session.get('reset_code')
         email = request.session.get('reset_email')
@@ -89,4 +92,30 @@ class VerifyRestCode(APIView):
 
 
 class NewPassword(APIView):
-    pass
+    authentication_classes = []
+    permission_classes = [AllowAny]
+    def post(self, request):
+        if not request.session.get('allow_password_reset'):
+            return Response({'error': 'اجازه تغییر رمز عبور وجود ندارد'}, status=403)
+        serializer = NewPasswordSerializer(data=request.data)
+        if serializer.is_valid():
+            new_password = serializer.validated_data['new_password']
+            email = request.session.get('reset_email')
+
+            try:
+                user = User.objects.get(email=email)
+                user.set_password(new_password)
+                user.save()
+
+                request.session.pop('reset_email', None)
+                request.session.pop('rest_email',None)
+
+                return Response({'message':'رمز با موفقیت تغییر کرد'},status=200)
+
+            except User.DoesNotExist:
+                return Response({'error': 'کاربر پیدا نشد'}, status=404)
+
+        return Response(serializer.errors, status=400)
+
+
+

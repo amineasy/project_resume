@@ -148,9 +148,6 @@ SIMPLE_JWT = {
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
@@ -161,12 +158,18 @@ REST_FRAMEWORK = {
 
 
 
+
+
+
+
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.elasticemail.com'
-EMAIL_PORT = 2525
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'amineasydjango@gmail.com'
-EMAIL_HOST_PASSWORD = 'A1E5BA52A320F7FC461F05AF378729BBEC2A'
+EMAIL_HOST_PASSWORD = 'haym zbmj evxt bxte '
 DEFAULT_FROM_EMAIL = 'amineasydjango@gmail.com'
 
 

@@ -45,7 +45,7 @@ class VerifyCodeSerializer(serializers.Serializer):
 
 
 
-class PasswordResetConfirmSerializer(serializers.Serializer):
+class NewPasswordSerializer(serializers.Serializer):
     new_password = serializers.CharField(min_length=6, write_only=True)
     confirm_password = serializers.CharField(min_length=6, write_only=True)
 

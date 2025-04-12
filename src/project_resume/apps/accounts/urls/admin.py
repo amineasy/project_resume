@@ -9,7 +9,7 @@ app_name = 'accounts_admin'
 
 urlpatterns = [
     path('register',RegisterApiView.as_view(), name='register'),
-    path('forgot_password',SendEmailPassword.as_view(), name='forgot_password'),
+    path('SendEmailPassword',SendEmailPassword.as_view(), name='forgot_password'),
     path('VerifyRestCode',VerifyRestCode.as_view(), name='VerifyRestCode'),
-    path('new-password',NewPassword().as_view(), name='new_password'),
+    path('newpassword',NewPassword().as_view(), name='new_password'),
 ]

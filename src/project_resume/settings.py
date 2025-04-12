@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta
 
 try:
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'project_resume.apps.accounts',
     'project_resume.apps.menu',
+    'project_resume.apps.media',
     'drf_spectacular',
 ]
 
@@ -148,11 +150,24 @@ SIMPLE_JWT = {
 
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 
 
+
+
+
+# settings.py
+
+MEDIA_URL = '/media/'  # URL که برای دسترسی به فایل‌ها استفاده می‌شود
+MEDIA_ROOT = os.path.join(BASE_DIR, 'data', 'web', 'media')
 
 
 
@@ -178,3 +193,20 @@ DEFAULT_FROM_EMAIL = 'amineasydjango@gmail.com'
 
 
 SESSION_COOKIE_AGE = 300
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

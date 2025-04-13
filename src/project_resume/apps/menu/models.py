@@ -9,7 +9,7 @@ User = get_user_model()
 
 class Menu(models.Model):
     name = models.CharField(max_length=100)
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True,related_name='sub_menu')
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True,related_name='sub_menu_related')
 
     def __str__(self):
         return self.name

@@ -15,6 +15,12 @@ admin_urls = [
 
 
 
+
+frontend_urls = [
+    path('frontend/',include('project_resume.apps.menu.urls.frontend', namespace='menu_frontend')),
+]
+
+
 drf_spectacular = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
@@ -25,7 +31,7 @@ drf_spectacular = [
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-] + admin_urls + drf_spectacular
+] + admin_urls+frontend_urls+ drf_spectacular
 
 
 

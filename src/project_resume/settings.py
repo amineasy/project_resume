@@ -136,7 +136,7 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # زمان انقضا برای Access Token
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=6000),  # زمان انقضا برای Access Token
     'REFRESH_TOKEN_LIFETIME': timedelta(days=15),  # زمان انقضا برای Refresh Token
     'ROTATE_REFRESH_TOKENS': False,  # اگه می‌خوای Refresh Token جدید تولید نشه در زمان رفرش
     'BLACKLIST_AFTER_ROTATION': True,  # وقتی Refresh Token عوض بشه، قبلی غیرفعال بشه
@@ -154,7 +154,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }

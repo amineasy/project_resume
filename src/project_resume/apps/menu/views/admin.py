@@ -7,7 +7,7 @@ from project_resume.apps.menu.models import *
 from project_resume.apps.menu.serializers.admin import RatingSerializer
 
 
-class RatingDish(APIView):
+class RateDishView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request):

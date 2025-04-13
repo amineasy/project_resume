@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from project_resume.apps.menu.models import RatingDish
+from project_resume.apps.menu.models import RatingDish, LikeDish
 
 
 class RatingSerializer(serializers.ModelSerializer):
@@ -9,3 +9,11 @@ class RatingSerializer(serializers.ModelSerializer):
         fields = ['score','dish']
 
 
+
+
+
+
+class LikeCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LikeDish
+        fields = '__all__'

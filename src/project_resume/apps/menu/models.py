@@ -51,3 +51,16 @@ class RatingDish(models.Model):
     def __str__(self):
         return f"{self.user} rated {self.dish.name} with score {self.score}"
 
+
+
+
+
+class LikeDish(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes")
+    dish = models.ForeignKey(Dish, on_delete=models.CASCADE, related_name="likes")
+
+    class Meta:
+        unique_together = (('user', 'dish'),)
+
+    def __str__(self):
+        return f"{self.user} liked {self.dish.name}"

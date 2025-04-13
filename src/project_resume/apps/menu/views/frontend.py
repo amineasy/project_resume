@@ -1,8 +1,8 @@
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from project_resume.apps.menu.models import Menu, Dish
+from project_resume.apps.menu.models import Menu, Dish, LikeDish
 from project_resume.apps.menu.serializers.frontend import DishSerializer
 
 
@@ -32,3 +32,27 @@ class DishesByMainMenuView(APIView):
             "main_menu": main_menu.name,
             "sub_menu": submenu_data
         })
+
+
+
+
+
+
+
+
+class FavouriteDishes(APIView):
+    Permission_classes = (IsAuthenticated,)
+
+
+    def get(self, request):
+        liked_dishes = LikeDish.objects.filter(user=request.user)
+
+        dish_ids = liked_dishes.values_list('dish_id', flat=True)
+
+        dishes = Dish.objects.filter(id__in=dish_ids)
+
+        serializer = DishSerializer(dishes, many=True)
+
+        return Response(serializer.data)
+
+

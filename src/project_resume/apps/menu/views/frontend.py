@@ -15,13 +15,12 @@ class DishesByMainMenuView(APIView):
         except Menu.DoesNotExist:
             return Response({"error": "منو پیدا نشد"}, status=404)
 
-        # دریافت همه زیرمنوها به همراه غذاهای مربوط به هرکدوم
         sub_menus = Menu.objects.filter(parent=main_menu).prefetch_related('dishes')
 
         submenu_data = []
         for sub in sub_menus:
-            # غذاهایی که به این زیرمنو مربوط هستند
-            dish_serializer = DishSerializer(sub.dishes.all(), many=True)
+
+            dish_serializer = DishSerializer(sub.dishes.all(), many=True,context={'request': request})
             submenu_data.append({
                 "submenu_name": sub.name,
                 "submenu_id": sub.id,

@@ -164,10 +164,9 @@ REST_FRAMEWORK = {
 
 
 
-# settings.py
 
-MEDIA_URL = '/media/'  # URL که برای دسترسی به فایل‌ها استفاده می‌شود
-MEDIA_ROOT = os.path.join(BASE_DIR, 'data', 'web', 'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR.parent / 'data/media/images'
 
 
 

@@ -29,6 +29,7 @@ class RateDishView(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class LikeCreate(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -43,8 +44,5 @@ class LikeCreate(APIView):
             return Response({'message': 'لایک حذف شد'}, status=status.HTTP_200_OK)
 
         LikeDish.objects.create(user=request.user, dish=dish)
-        return Response({"message": "لایک با موفقیت ثبت شد. برای دیدن به لیست علاقه‌مندی‌ها مراجعه کنید."}, status=status.HTTP_201_CREATED)
-
-
-
-
+        return Response({"message": "لایک با موفقیت ثبت شد. برای دیدن به لیست علاقه‌مندی‌ها مراجعه کنید."},
+                        status=status.HTTP_201_CREATED)

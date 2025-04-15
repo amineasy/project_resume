@@ -8,6 +8,7 @@ from django.conf.urls.static import static
 admin_urls = [
     path('backend/api/', include('project_resume.apps.accounts.urls.admin', namespace='accounts_admin')),
     path('backend/api/', include('project_resume.apps.menu.urls.admin', namespace='menu_admin')),
+    path('backend/api/', include('project_resume.apps.inbox.urls.admin', namespace='inbox_admin')),
     path('backend/login/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('backend/login/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
@@ -18,6 +19,7 @@ admin_urls = [
 
 frontend_urls = [
     path('frontend/',include('project_resume.apps.menu.urls.frontend', namespace='menu_frontend')),
+    path('frontend/',include('project_resume.apps.inbox.urls.frontend', namespace='inbox_frontend')),
 ]
 
 

@@ -40,7 +40,7 @@ class DishesByMainMenuView(APIView):
 
 
 class FavouriteDishes(APIView):
-    Permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
 
 
     def get(self, request):

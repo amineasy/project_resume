@@ -24,14 +24,6 @@ class Cart:
 
 
 
-    def remove_all(self,dish):
-        dish_id = str(dish.id)
-        if dish_id in self.cart:
-            del self.cart[dish_id]
-            self.save_cart()
-
-
-
 
 
 
@@ -47,6 +39,14 @@ class Cart:
                 del self.cart[dish_id]
             self.save_cart()
 
+
+
+
+
+
+    def clear_cart(self):
+        self.session[CART_SESSION_ID] = {}
+        self.save_cart()
 
 
 
@@ -74,12 +74,18 @@ class Cart:
 
     def get_total_price(self):
         return sum(
-            int(item['price']) * int(item['quantity'])
+            item['total_price']#اشاره به توتال پرایس بالایی
             for item in self.cart.values()
         )
 
-
-
+    def get_total_discount(self):
+        total_discount = 0
+        for item in self:
+            original_price = item['dish'].price
+            final_price = item['price']
+            quantity = item['quantity']
+            total_discount += (original_price - final_price) * quantity
+        return total_discount
 
 
 

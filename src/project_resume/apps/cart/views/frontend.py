@@ -13,6 +13,7 @@ class CartDetailAPIView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request):
+        global total_price_discount
         cart = Cart(request)
         data = []
         total_price_cart = 0#برای مقدار دهی اولیه
@@ -32,7 +33,8 @@ class CartDetailAPIView(APIView):
 
         return Response({
             'data': data,
-            'total_price_all_item': total_price_cart
+            'total_price_all_item': total_price_cart,
+            'total_discount_all_item': cart.get_total_discount()
         })
 
 

@@ -30,15 +30,11 @@ class AddCart(APIView):
 class RemoveAllFromCartView(APIView):
     permission_classes = (AllowAny,)
 
-    def delete(self, request, dish_id):
-        cart = Cart(request)
-        try:
-            dish = Dish.objects.get(id=dish_id)
-            cart.remove_all(dish)
-            return Response({"message":'با موفقیت حذف شد'},status=status.HTTP_200_OK)
-        except Dish.DoesNotExist:
-            return Response({'error':'غذا پیدا نشد'},status=status.HTTP_400_BAD_REQUEST)
 
+    def delete(self, request):
+        cart = Cart(request)
+        cart.clear_cart()
+        return Response({"message": "سبد خرید با موفقیت پاک شد"}, status=status.HTTP_200_OK)
 
 
 class RemoveSingleCartView(APIView):

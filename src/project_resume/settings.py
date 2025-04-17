@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'project_resume.apps.menu',
     'project_resume.apps.media',
     'project_resume.apps.inbox',
+    'project_resume.apps.cart',
     'drf_spectacular',
 ]
 

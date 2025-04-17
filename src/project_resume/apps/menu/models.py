@@ -20,6 +20,7 @@ class Dish(models.Model):
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE, related_name="dishes")
     price = models.IntegerField()
     discount_price = models.IntegerField(default=0)
+    quantity = models.IntegerField(default=0)
     favorite = models.BooleanField(default=False)
 
 

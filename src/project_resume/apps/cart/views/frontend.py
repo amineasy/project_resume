@@ -13,13 +13,14 @@ class CartDetailAPIView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request):
-        global total_price_discount
         cart = Cart(request)
         data = []
         total_price_cart = 0#برای مقدار دهی اولیه
+
         for item in cart:
             price_after_discount = item['dish'].get_total_price()
             total_price_by_quantity = price_after_discount * item['quantity']
+            total_price_cart += total_price_by_quantity
 
             data.append({
                 'dish': DishSerializer(item['dish'], context={'request': request}).data,
@@ -28,8 +29,6 @@ class CartDetailAPIView(APIView):
                 'total_price_by_quantity': total_price_by_quantity
             })
 
-
-            total_price_cart = cart.get_total_price()
 
         return Response({
             'data': data,

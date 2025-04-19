@@ -168,3 +168,4 @@ cython_debug/
 /data
 /venv
 /src/project_resume/local_settings.py
+/src/.env

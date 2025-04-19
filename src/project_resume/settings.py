@@ -1,9 +1,6 @@
 import os
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
+from decouple import config, Csv
 
 """
 Django settings for project_resume project.
@@ -181,6 +178,91 @@ SESSION_COOKIE_AGE = 300
 
 
 
+
+
+from datetime import timedelta
+
+
+
+
+
+DEBUG = config('DEBUG', cast=bool)
+
+
+
+SECRET_KEY = config('SECRET_KEY')
+
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=6000),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': config('JWT_SIGNING_KEY'),
+}
+
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config("DB_NAME"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
+        "HOST": config("DB_HOST", default="127.0.0.1"),
+        "PORT": config("DB_PORT", default="5432"),
+    }
+}
+
+
+
+
+
+CORS_ALLOWED_ORIGINS = [
+    "https://mellow-sopapillas-c97103.netlify.app",
+    "http://localhost:3000",
+]
+
+
+
+
+
+
+
+CORS_ALLOW_CREDENTIALS = True
+
+
+# متدهای مجاز (اختیاری)
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS",
+]
+
+# هدرهای مجاز (اختیاری)
+CORS_ALLOW_HEADERS = [
+    "authorization",
+    "content-type",
+    "accept",
+    "origin",
+]
 
 
 

@@ -1,1 +1,1 @@
-web: gunicorn project_resume.wsgi:application
+web: gunicorn src/project_resume.wsgi

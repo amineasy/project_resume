@@ -1,5 +1,4 @@
 import os
-from datetime import timedelta
 
 try:
     from .local_settings import *
@@ -27,13 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-yqkgv3($1=fr^h6$9j0@9eq#6_uiol-href%c+@)8ajy#+38)+'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+
 
 
 # Application definition
@@ -45,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'project_resume.apps.accounts',
     'project_resume.apps.menu',
     'project_resume.apps.media',
@@ -54,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -137,14 +134,6 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 
 
 
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=6000),  # زمان انقضا برای Access Token
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=15),  # زمان انقضا برای Refresh Token
-    'ROTATE_REFRESH_TOKENS': False,  # اگه می‌خوای Refresh Token جدید تولید نشه در زمان رفرش
-    'BLACKLIST_AFTER_ROTATION': True,  # وقتی Refresh Token عوض بشه، قبلی غیرفعال بشه
-    'ALGORITHM': 'HS256',  # الگوریتم رمزنگاری توکن
-    'SIGNING_KEY': 'your-secret-key',  # کلید رمزنگاری برای توکن‌ها
-}
 
 
 
@@ -180,24 +169,12 @@ MEDIA_ROOT = BASE_DIR.parent / 'data/media/images'
 
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'amineasydjango@gmail.com'
-EMAIL_HOST_PASSWORD = 'haym zbmj evxt bxte '
-DEFAULT_FROM_EMAIL = 'amineasydjango@gmail.com'
-
 
 
 
 
 
 SESSION_COOKIE_AGE = 300
-
-
-
-
 
 
 

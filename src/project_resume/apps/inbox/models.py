@@ -1,10 +1,10 @@
+from django.conf import settings
 from django.db import models
 
-from project_resume.apps.menu.models import User
 
 
 class FeedBack(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     fullname = models.CharField(max_length=120)
     phone_number = models.CharField(max_length=120)
     email = models.EmailField(blank=True,null=True)

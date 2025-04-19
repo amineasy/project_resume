@@ -167,3 +167,4 @@ cython_debug/
 .data
 /data
 /venv
+/src/project_resume/local_settings.py

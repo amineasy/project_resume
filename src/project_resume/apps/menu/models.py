@@ -1,8 +1,8 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 
 
-User = get_user_model()
 
 
 
@@ -40,7 +40,7 @@ class Dish(models.Model):
 
 class RatingDish(models.Model):
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE, related_name="ratings")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ratings")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="ratings")
     score = models.PositiveIntegerField(choices=[(i, i) for i in range(1, 6)])
 
 
@@ -57,7 +57,7 @@ class RatingDish(models.Model):
 
 
 class LikeDish(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="likes")
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE, related_name="likes")
 
     class Meta:

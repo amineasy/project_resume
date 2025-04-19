@@ -192,9 +192,15 @@ DEBUG = config('DEBUG', cast=bool)
 
 SECRET_KEY = config('SECRET_KEY')
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = ['projectresume-production-a46a.up.railway.app','localhost','127.0.0.1']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://projectresume-production-a46a.up.railway.app',
+    'https://mellow-sopapillas-c97103.netlify.app'
+]
 
 
+CSRF_COOKIE_SECURE = True
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=6000),

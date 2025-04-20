@@ -1,1 +1,1 @@
-web: gunicorn src.project_resume.wsgi
+web: gunicorn project_resume.wsgi:application --chdir src

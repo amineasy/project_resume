@@ -2,6 +2,7 @@ import os
 
 from decouple import config, Csv
 import dj_database_url
+from dotenv import load_dotenv
 
 """
 Django settings for project_resume project.
@@ -186,15 +187,19 @@ from datetime import timedelta
 
 
 
-DEBUG = config('DEBUG', cast=bool)
 
 
 
-SECRET_KEY = config('SECRET_KEY')
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = ['projectresume-production-a46a.up.railway.app','localhost','127.0.0.1']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://projectresume-production-a46a.up.railway.app',
+    'https://mellow-sopapillas-c97103.netlify.app'
+]
 
 
+CSRF_COOKIE_SECURE = True
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=6000),
@@ -217,23 +222,43 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 
+
+
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('PGDATABASE'),
+#         'USER': config('PGUSER'),
+#         'PASSWORD': config('PGPASSWORD'),
+#         'HOST': config('PGHOST'),
+#         'PORT': config('PGPORT'),
+#     }
+# }
+
+
+from pathlib import Path
+import os
+from dotenv import load_dotenv
+import dj_database_url
+
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv()
+
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("DB_NAME"),
-        "USER": config("DB_USER"),
-        "PASSWORD": config("DB_PASSWORD"),
-        "HOST": config("DB_HOST", default="127.0.0.1"),
-        "PORT": config("DB_PORT", default="5432"),
-    }
+    'default': dj_database_url.config(conn_max_age=1800)
 }
 
-
-
-
-
-
-
+# برای دیباگ: چاپ متغیر محیطی
+print("DATABASE_URL:", os.getenv("DATABASE_URL"))
 
 
 
@@ -261,6 +286,9 @@ CORS_ALLOW_METHODS = [
     "DELETE",
     "OPTIONS",
 ]
+
+
+
 
 # هدرهای مجاز (اختیاری)
 CORS_ALLOW_HEADERS = [

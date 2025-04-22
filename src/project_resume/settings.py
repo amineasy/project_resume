@@ -191,7 +191,8 @@ from datetime import timedelta
 
 
 
-ALLOWED_HOSTS = ['projectresume-production-a46a.up.railway.app','localhost','127.0.0.1']
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost").split(",")
+
 
 CSRF_TRUSTED_ORIGINS = [
     'https://projectresume-production-a46a.up.railway.app',

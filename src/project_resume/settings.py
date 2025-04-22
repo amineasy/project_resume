@@ -253,9 +253,19 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
+
+
+
+
+
 DATABASES = {
     'default': dj_database_url.config(conn_max_age=1800)
 }
+
+
+
+
+
 
 # برای دیباگ: چاپ متغیر محیطی
 print("DATABASE_URL:", os.getenv("DATABASE_URL"))

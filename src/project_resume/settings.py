@@ -195,7 +195,7 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost").split(",")
 
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://projectresume-production-a46a.up.railway.app',
+    'https://projectresume-production-a72f.up.railway.app',
     'https://mellow-sopapillas-c97103.netlify.app'
 ]
 

@@ -304,7 +304,6 @@ CORS_ALLOW_METHODS = [
 
 
 
-# هدرهای مجاز (اختیاری)
 CORS_ALLOW_HEADERS = [
     "authorization",
     "content-type",
